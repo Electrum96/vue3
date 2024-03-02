@@ -1,8 +1,8 @@
 <template> <!--секция для разметки-->
   <div>
     <div >
-      <button v-on:click="addLike">Like</button> <!--связывание функций с кнопками при помощи директивы v-on (слушатель события)-->
-      <button v-on:click="addDislike">Dislike</button>
+      <button @click="addLike">Like</button> <!--связывание функций с кнопками при помощи директивы v-on (слушатель события)-->
+      <button @click="addDislike">Dislike</button> <!--короткое написание директивы v-on - @click-->
 
     </div>
     <div>
