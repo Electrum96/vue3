@@ -3,17 +3,17 @@
       <form>
         <h4>Создание поста</h4>
         <!-- v-bind позволяет связывать данные с конкретным компонентом здесь связываю инпут с title
-        подписываюсь на изменения внутри инпута при помощи @input-->
+        подписываюсь на изменения при помощи @input и встроенной функции $event-->
         <input
             v-bind:value="title"
-            @input="inputTitle"
+            @input="title = $event.target.value"
             class="input"
             type="text"
             placeholder="название поста">
         <!--тоже самое для body-->
         <input
             v-bind:value="body"
-            @input="inputBody"
+            @input="body = $event.target.value"
             class="input"
             type="text"
             placeholder="описание поста">
@@ -44,18 +44,6 @@ export default {
     createPost() {
 
     },
-    inputTitle(e) {
-      this.title = e.target.value; /*помещаю значание из инпута в переменную title*/
-
-    },
-    inputBody(e) {
-      this.body = e.target.value;
-
-    }
-
-
-
-
 
   }
 
