@@ -1,38 +1,42 @@
 <template> <!--секция для разметки-->
   <div>
-    <div >
-      <button @click="addLike">Like</button> <!--связывание функций с кнопками при помощи директивы v-on (слушатель события)-->
-      <button @click="addDislike">Dislike</button> <!--короткое написание директивы v-on - @click-->
-
-    </div>
-    <div>
-   Кол-во лайков: <strong>{{likes}}</strong>  <!--модель встраивается при помощи интерполяции-->
-    Кол-во дизлайков: <strong>{{dislikes}}</strong>
+    <div class="post" v-for="post in posts"> <!--директива v-for для отрисовки элементов массива-->
+      <div><strong>Название:</strong>{{post.title}}</div> <!--динамически забираю название из post-->
+      <div><strong>Описание:</strong>{{post.body}}</div>
     </div>
   </div>
 </template>
 
-<script> /*логика компонента по дефолту экспортируется объект*/
+<script> 
 export default {
-   data() {
-     return {
-       likes: 0,   /*описание модели*/
-       dislikes: 5
-     }
-   },
-  methods: { /*поле для функций*/
-     addLike() {
-       this.likes += 1;  /*получение доступа к модели внутри функции*/
-     },
-    addDislike() {
-      this.dislikes += 1;
-
+  data() {
+    return {
+      posts: [
+        {id: 1, title: 'Title', body: 'Описание поста'},
+        {id: 2, title: 'Title 2', body: 'Описание поста 2'},
+        {id: 3, title: 'Title 3', body: 'Описание поста 3'},
+      ]
     }
+  },
+  methods: { /*поле для функций*/
+
+
   }
 
 }
 </script>
 
-<style scoped>/* блок для стилей, директива scoped указывает, что стили будут применены внутри  данного компонента*/
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.post {
+  padding: 15px;
+  border: 2px solid teal;
+  margin-top: 15px;
+}
 
 </style>
