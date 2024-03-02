@@ -1,34 +1,19 @@
 <template> <!--секция для разметки-->
   <div class="app">
-    <form @submit.prevent> <!--отменяю стандартное поведения браузера на событие submit при помощи preventDefault-->
-      <h4>Создание поста</h4>
-      <!-- v-bind позволяет связывать данные с конкретным компонентом здесь связываю инпут с title
-      подписываюсь на изменения при помощи @input и встроенной функции $event-->
-      <input
-          v-bind:value="title"
-          @input="title = $event.target.value"
-          class="input"
-          type="text"
-          placeholder="название поста">
-      <!--тоже самое для body-->
-      <input
-          v-bind:value="body"
-          @input="body = $event.target.value"
-          class="input"
-          type="text"
-          placeholder="описание поста">
-      <button class="btn" @click="createPost"> Добавить</button>
-    </form>
-
-    <div class="post" v-for="post in posts"> <!--директива v-for для отрисовки элементов массива-->
-      <div><strong>Название:</strong>{{ post.title }}</div> <!--динамически забираю название из post-->
-      <div><strong>Описание:</strong>{{ post.body }}</div>
-    </div>
+    <post-form/>
+    <post-list/>
   </div>
 </template>
 
 <script>
+import PostForm from "@/components/PostForm.vue"; /*компоненты импортируются в секции script*/
+import PostList from "@/components/PostList.vue";
 export default {
+
+  components: {  /*регистрация компонентов*/
+    PostForm, PostList
+
+  },
   data() {
     return {
       posts: [
@@ -69,30 +54,5 @@ export default {
   padding: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.post {
-  padding: 15px;
-  border: 2px solid teal;
-  margin-top: 15px;
-}
-
-.input {
-  width: 100%;
-  border: 2px solid teal;
-  padding: 15px;
-  margin-top: 15px;
-}
-
-.btn {
-  align-self: flex-end;
-  margin-top: 15px;
-  border: 2px solid teal;
-  padding: 15px;
-  background: none;
-}
 
 </style>
