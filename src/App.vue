@@ -1,7 +1,7 @@
 <template> <!--секция для разметки-->
   <div class="app">
     <post-form/>
-    <post-list/>
+    <post-list :posts="posts"/>  <!--передается значение при помощи v-bind (короткая запись :)-->
   </div>
 </template>
 

@@ -1,16 +1,17 @@
 <template>
   <form @submit.prevent>
     <h4>Создание поста</h4>
+  <!-- забираю title из объекта post-->
     <input
-        v-bind:value="title"
-        @input="title = $event.target.value"
+        v-bind:value="post.title"
+        @input="post.title = $event.target.value"
         class="input"
         type="text"
         placeholder="название поста">
-    <!--тоже самое для body-->
+    <!-- забираю body из объекта post-->
     <input
-        v-bind:value="body"
-        @input="body = $event.target.value"
+        v-bind:value="post.body"
+        @input="post.body = $event.target.value"
         class="input"
         type="text"
         placeholder="описание поста">
@@ -20,11 +21,20 @@
 
 <script>
 export default {
+  data() {           /*   описываю модель поста*/
+    return {
+      post: {
+        title: '',
+        body: ''
+      }
+    }
+
+  }
 
 }
 </script>
 
-<style  scoped>
+<style scoped>
 form {
   display: flex;
   flex-direction: column;

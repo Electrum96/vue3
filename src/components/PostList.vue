@@ -7,6 +7,13 @@
 
 <script>
 export default {
+  props: {     /*  передаются пропсы, массив, по которому будет идти v-for*/
+    posts: {
+      type: Array,  /*указывается тип пропса*/
+      required: true /*обязательность пропса*/
+
+    }
+  }
 
 }
 </script>
