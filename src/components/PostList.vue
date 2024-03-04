@@ -1,5 +1,5 @@
 <template>
- <div>
+ <div v-if="posts.length > 0">
    <h3>Список постов</h3>
    <!--указываю id для работы цикла-->
    <post-item
@@ -8,6 +8,7 @@
        :key="post.id"
        @remove="$emit('remove', post)"/> <!--принимаю remove  и пост внутри него, эмичу событие-->
  </div>
+  <h2 v-else style="color: red">Список пуст</h2>
 
 </template>
 
