@@ -5,13 +5,13 @@
     <!--запуск функции меняющей булевое значение в модели-->
 
     <my-dialog v-model:show="dialogVisible">
-
       <post-form @create="createPost"/>
-
     </my-dialog> <!--добавляю в модальное окно форму-->
 
-    <post-list :posts="posts" @remove="removePost"/>
-    <!-- вешаю слушатель @remove и передаю туда функцию удаления поста-->
+    <!--    лист рисует если приходит в isPostLoading true-->
+    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading"/>
+    <!--     если isPostsLoading = false показывает div-->
+    <div v-else>Идёт загрузка...</div>
   </div>
 </template>
 
@@ -34,7 +34,8 @@ export default {
     return {
       posts: [],
       dialogVisible: false, /*входная модель в зависимости от которой модальное окно лио видно или скрыто*/
-      modificatorValue: ''
+      isPostsLoading: false /*модель для отслеживания загрузки
+      */
     }
 
   },
@@ -49,16 +50,15 @@ export default {
     showDialog() {
       this.dialogVisible = true; /*изменение булевого значения для модели*/
     },
-    async fetchPosts() {
+    async fetchPosts() { /* функция делает запрос на сервер и выводит 10 постов*/
       try {
-        setTimeout(async () => {
-          const responce = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-          this.posts = responce.data;
-        }, 1000)
-
-
+        this.isPostsLoading = true;/* меняется булевое значение индикатора*/
+        const responce = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10'); /*данные записываются в константу*/
+        this.posts = responce.data; /*данные с сервера передаются в массив постов*/
       } catch (e) {
-        alert('Ошибка')
+        alert('Ошибка') /*на случай ошибки*/
+      } finally {
+        this.isPostsLoading = false; /*после загрузки данных булевое значение для индикатора снова меняется*/
       }
     }
 
