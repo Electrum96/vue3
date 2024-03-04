@@ -1,7 +1,8 @@
 <template> <!--секция для разметки-->
   <div class="app">
     <h1>Страница с постами</h1>
-    <input type="text" v-model.number="modificatorValue">  <!--значение из value записывается сразу как number-->
+    <my-button @click="fetchPosts">Получить посты</my-button>
+
     <my-button @click="showDialog" style="margin: 15px 0px">Создать пост</my-button> <!--запуск функции меняющей булевое значение в модели-->
 
     <my-dialog v-model:show="dialogVisible" >
@@ -19,6 +20,7 @@ import PostForm from "@/components/PostForm.vue"; /*компоненты имп�
 import PostList from "@/components/PostList.vue";
 import MyDialog from "@/components/UI/MyDialog.vue";
 import MyButton from "@/components/UI/MyButton.vue";
+import axios from "axios";
 export default {
 
   components: {
@@ -30,9 +32,8 @@ export default {
   data() {
     return {
       posts: [
-        {id: 1, title: 'Title', body: 'Описание поста'},
-        {id: 2, title: 'Title 2', body: 'Описание поста 2'},
-        {id: 3, title: 'Title 3', body: 'Описание поста 3'},
+
+
       ],
       dialogVisible: false, /*входная модель в зависимости от которой модальное окно лио видно или скрыто*/
       modificatorValue: ''
@@ -49,6 +50,14 @@ export default {
     },
     showDialog() {
      this.dialogVisible = true; /*изменение булевого значения для модели*/
+    },
+    async fetchPosts() {
+         try {
+           const  responce = await  axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+           this.posts = responce.data;
+         } catch (e) {
+           alert('Ошибка')
+         }
     }
 
   }
