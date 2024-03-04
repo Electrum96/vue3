@@ -1,7 +1,7 @@
 <template> <!--секция для разметки-->
   <div class="app">
     <h1>Страница с постами</h1>
-    <input type="text" v-model.trim="modificatorValue">  <!--.trim пробелы не попадают из инпута в модель-->
+    <input type="text" v-model.number="modificatorValue">  <!--значение из value записывается сразу как number-->
     <my-button @click="showDialog" style="margin: 15px 0px">Создать пост</my-button> <!--запуск функции меняющей булевое значение в модели-->
 
     <my-dialog v-model:show="dialogVisible" >
