@@ -1,6 +1,15 @@
 <template> <!--секция для разметки-->
   <div class="app">
-    <post-form @create="createPost"/> <!--подписываюсь на событие в ребенке при помощи @create,указываю функцию куда передаю данные-->
+    <h1>Страница с постами</h1>
+
+    <my-button @click="showDialog" style="margin: 15px 0px">Создать пост</my-button> <!--запуск функции меняющей булевое значение в модели-->
+
+    <my-dialog v-model:show="dialogVisible" >
+
+      <post-form @create="createPost"/>
+
+    </my-dialog> <!--добавляю в модальное окно форму-->
+
     <post-list :posts="posts"  @remove="removePost"/>  <!-- вешаю слушатель @remove и передаю туда функцию удаления поста-->
   </div>
 </template>
@@ -8,9 +17,13 @@
 <script>
 import PostForm from "@/components/PostForm.vue"; /*компоненты импортируются в секции script*/
 import PostList from "@/components/PostList.vue";
+import MyDialog from "@/components/UI/MyDialog.vue";
+import MyButton from "@/components/UI/MyButton.vue";
 export default {
 
-  components: {  /*регистрация компонентов*/
+  components: {
+    MyButton,
+    MyDialog,
     PostForm, PostList
 
   },
@@ -20,15 +33,20 @@ export default {
         {id: 1, title: 'Title', body: 'Описание поста'},
         {id: 2, title: 'Title 2', body: 'Описание поста 2'},
         {id: 3, title: 'Title 3', body: 'Описание поста 3'},
-      ]
+      ],
+      dialogVisible: false, /*входная модель в зависимости от которой модальное окно лио видно или скрыто*/
     }
   },
   methods: {
-    createPost(post) { /*передаю в функцию пост из ребенка*/
-      this.posts.push(post); /*добавляю пост в массив*/
+    createPost(post) {
+      this.posts.push(post);
+      this.dialogVisible = false; /*скрытие модального окна после добавления поста*/
     },
     removePost(post) {
       this.posts = this.posts.filter(p => p.id !== post.id) /*функция принимает пост проходится фильтром и возвращает массив элементов без поста */
+    },
+    showDialog() {
+     this.dialogVisible = true; /*изменение булевого значения для модели*/
     }
 
   }
