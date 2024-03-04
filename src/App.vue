@@ -1,6 +1,6 @@
 <template> <!--секция для разметки-->
   <div class="app">
-    <post-form/>
+    <post-form @create="createPost"/> <!--подписываюсь на событие в ребенке при помощи @create,указываю функцию куда передаю данные-->
     <post-list :posts="posts"/>  <!--передается значение при помощи v-bind (короткая запись :)-->
   </div>
 </template>
@@ -20,22 +20,12 @@ export default {
         {id: 1, title: 'Title', body: 'Описание поста'},
         {id: 2, title: 'Title 2', body: 'Описание поста 2'},
         {id: 3, title: 'Title 3', body: 'Описание поста 3'},
-      ],
-      title: '',
-      body: ''
+      ]
     }
   },
   methods: {
-    createPost() {
-      const newPost = { /*описываю объект пост в константу*/
-        id: Date.now(),
-        title: this.title, /*получаю значения из соответствующей модели*/
-        body:  this.body
-      }
-      this.posts.push(newPost); /*добавление нового объекта в массив постов*/
-      this.title = ''; /*очищаю поле  после добавления поста*/
-      this.body = '';
-
+    createPost(post) { /*передаю в функцию пост из ребенка*/
+      this.posts.push(post); /*добавляю пост в массив*/
     },
 
   }
