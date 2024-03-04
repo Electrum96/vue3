@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton.vue";
+
 
 export default {
-  components: {MyButton},
+
   data() {           /*   описываю модель поста*/
     return {
       post: {

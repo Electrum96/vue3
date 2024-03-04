@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'my-button' /*задаю св-во name для кнопки*/
 
 }
 </script>
