@@ -2,17 +2,15 @@
   <form @submit.prevent>
     <h4>Создание поста</h4>
   <!-- двустороннее связывание при помощи директивы v-model-->
-    <input
+    <my-input
         v-model="post.title"
-        class="input"
         type="text"
-        placeholder="название поста">
+        placeholder="название поста"/>
     <!-- двустороннее связывание при помощи директивы v-model-->
-    <input
+    <my-input
         v-model="post.body"
-        class="input"
         type="text"
-        placeholder="описание поста">
+        placeholder="описание поста"/>
     <my-button
         class="btn"
         style="align-self: flex-end; margin-top: 15px;"
@@ -57,12 +55,7 @@ form {
   flex-direction: column;
 }
 
-.input {
-  width: 100%;
-  border: 2px solid teal;
-  padding: 15px;
-  margin-top: 15px;
-}
+
 
 
 
