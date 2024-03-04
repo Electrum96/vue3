@@ -1,9 +1,12 @@
 <template>
  <div>
    <h3>Список постов</h3>
+   <!--указываю id для работы цикла-->
    <post-item
        v-for="post in posts"
-       :post="post"/>
+       :post="post"
+       :key="post.id"
+       @remove="$emit('remove', post)"/> <!--принимаю remove  и пост внутри него, эмичу событие-->
  </div>
 
 </template>

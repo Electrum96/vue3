@@ -5,7 +5,8 @@
     <div><strong>Описание:</strong>{{ post.body }}</div>
     </div>
     <div class="post__btns">
-      <my-button>Удалить</my-button>
+      <my-button
+      @click="$emit('remove', post)">Удалить</my-button>  <!--вешаю слушатель события и в качестве event передаю навеох remove и post-->
     </div>
   </div>
 
