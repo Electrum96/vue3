@@ -1,7 +1,7 @@
 <template> <!--секция для разметки-->
   <div class="app">
     <h1>Страница с постами</h1>
-
+    <input type="text" v-model.trim="modificatorValue">  <!--.trim пробелы не попадают из инпута в модель-->
     <my-button @click="showDialog" style="margin: 15px 0px">Создать пост</my-button> <!--запуск функции меняющей булевое значение в модели-->
 
     <my-dialog v-model:show="dialogVisible" >
@@ -35,7 +35,9 @@ export default {
         {id: 3, title: 'Title 3', body: 'Описание поста 3'},
       ],
       dialogVisible: false, /*входная модель в зависимости от которой модальное окно лио видно или скрыто*/
+      modificatorValue: ''
     }
+
   },
   methods: {
     createPost(post) {
