@@ -21,7 +21,6 @@ export default {
     posts: {
       type: Array,  /*указывается тип пропса*/
       required: true /*обязательность пропса*/
-
     }
   }
 

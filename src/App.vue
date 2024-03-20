@@ -1,9 +1,12 @@
 <template> <!--секция для разметки-->
   <div class="app">
     <h1>Страница с постами</h1>
-    <my-button @click="showDialog" style="margin: 15px 0">Создать пост</my-button>
-    <!--запуск функции меняющей булевое значение в модели-->
-
+    <div class="app__btns">
+      <my-button @click="showDialog">Создать пост</my-button>
+      <my-select
+          :options="sortOptions"
+          />
+    </div>
     <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost"/>
     </my-dialog> <!--добавляю в модальное окно форму-->
@@ -21,21 +24,26 @@ import PostList from "@/components/PostList.vue";
 import MyDialog from "@/components/UI/MyDialog.vue";
 import MyButton from "@/components/UI/MyButton.vue";
 import axios from "axios";
+import MySelect from "@/components/UI/MySelect.vue";
 
 export default {
-
   components: {
+    MySelect,
     MyButton,
     MyDialog,
-    PostForm, PostList
-
+    PostForm,
+    PostList
   },
   data() {
     return {
       posts: [],
-      dialogVisible: false, /*входная модель в зависимости от которой модальное окно лио видно или скрыто*/
-      isPostsLoading: false /*модель для отслеживания загрузки
-      */
+      dialogVisible: false, /*входная модель в зависимости от которой модальное окно либо видно или скрыто*/
+      isPostsLoading: false,/*модель для отслеживания загрузки*/
+      selectedSort: '', /*значение по умолчанию если ничего не выбрано*/
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По описанию'}
+      ]
     }
 
   },
@@ -64,7 +72,14 @@ export default {
 
   },
   mounted() {
-    this.fetchPosts();
+    this.fetchPosts(); // подгрузка постов в хуке для подгружения постов сразу как открывается страница
+  },
+  watch: {
+    selectedSort(newValue) {
+      this.posts.sort((a, b) => {
+        return this.a[newValue]?.localeCompare(this.b[newValue])
+      })
+    }
   }
 
 }
@@ -79,6 +94,12 @@ export default {
 
 .app {
   padding: 20px;
+}
+
+.app__btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
 }
 
 
